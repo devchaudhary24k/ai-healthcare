@@ -1,0 +1,37 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+globs: ["src/**/*.ts", "src/**/*.tsx"]
+description: "Defines the folder structure and purpose of each directory in the Next.js project."
+---
+
+# Folder Structure - AI Guidance for Cursor
+
+
+
+# Instructions to Cursor
+
+- Always use components from `src/components/ui/` when creating UI elements.
+- Page-level files live under `src/app/`, follow Next.js App Router conventions.
+- Prefer domain-specific logic inside `src/features/`, split by feature and responsibility.
+- Use hooks from `src/hooks/` for any custom state/behavior.
+- Use configuration from `src/config/` to inform sidebar, site settings, etc.
+- Do not edit `.idea/`, `.vscode/`, or `.husky/` unless working on tooling or developer experience.
+- Routes in `(authenticated)/` require a user session; wrap these pages with auth checks/middleware.
+- `dashboard/[slug]/` uses dynamic routing — ensure proper usage of `params.slug`.
+- All layouts (`layout.tsx`) control nested rendering behavior — understand hierarchy before editing.
+- API routes are under `app/api/` — follow `route.ts` conventions.
+- For login/register/forgot/reset flows, use `app/auth/` — keep these isolated from authenticated views.
+- Avoid modifying files under `__tests__/` unless you're writing or fixing tests.
+
+# Notes
+
+- TypeScript is the primary language.
+- TailwindCSS is used for styling via `globals.css`.
+- The project uses `Drizzle` for database ORM, `Redis` and `Resend` for external services.
+- Environments are configured via `.env` and `env.ts`.
+- The project follows a modular, scalable, feature-based architecture.
+

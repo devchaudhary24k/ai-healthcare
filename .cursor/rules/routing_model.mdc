@@ -1,0 +1,40 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+globs: ["src/app/**/*.tsx", "src/features/**/*", "src/database/**/*"]
+description: "Routing logic and multitenancy rules for dashboard and file access in a multi-org setup"
+---
+
+# Multitenant Routing Logic (Organizations and Files)
+
+## 🧠 App Architecture Summary
+
+- Users can belong to multiple organizations.
+- After login, the user is sent through an onboarding flow (`/onboarding`).
+- Then, the user creates or selects an organization (`/dashboard/[org-slug]`).
+- Each organization gets a subpath: `domain.com/dashboard/[org-slug]`.
+
+## 📁 Route Patterns
+
+- Organization Dashboard: `/dashboard/[org-slug]/`  
+- File List: `/dashboard/[org-slug]/files/`  
+- Single File View: `/dashboard/[org-slug]/f/[file-slug]`  
+- Organization Settings: `/dashboard/[org-slug]/settings`  
+
+## ⚙️ Cursor Instructions
+
+- Any new feature for a user after login must live **under `/dashboard/[org-slug]/`**.
+- Always pass and use `[org-slug]` as part of the route params for context-aware operations (e.g., fetching org files).
+- If building file-related features:
+  - List → `/files`
+  - View → `/f/[file-slug]`
+- Organization-aware data (files, user preferences, tasks) must be filtered by `orgId`.
+
+## 🛠️ Helpful Tips
+
+- Use `useParams()` or `params` from route to extract `org-slug` and `file-slug`.
+- Map org-slugs to actual org IDs via database call (`slug -> orgId` lookup).
+- Wrap all dashboard routes in an auth+org middleware to check access.
